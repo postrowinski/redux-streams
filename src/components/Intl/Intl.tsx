@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
-import Navigation from '../Navigation/Navigation';
+import { Navigation } from '../Navigation/Navigation';
 import { connect, ConnectedComponent } from 'react-redux';
-import { ChangeLanguage } from '../ChangeLanguage/ChangeLanguage';
 import { Local } from '../../actions/localAction';
 
 export const localeData: any = {
@@ -20,7 +19,6 @@ interface Props extends State {}
 const IntlBody: React.FC<Props> = (props: Props): JSX.Element => {
     return (
         <IntlProvider locale={props.local} messages={localeData[props.local]}>
-            <ChangeLanguage />
             <Navigation />
         </IntlProvider>
     )

@@ -1,26 +1,7 @@
 {
-  "name": "boiler_plate",
+  "name": "react-redux-stream",
   "version": "0.1.0",
-  "description": "Starter kit for React, Webpack (with Hot Module Replacement), Typescript and Babel.",
-  "keywords": [
-    "react",
-    "redux",
-    "react-redux",
-    "redux-thunk",
-    "axios",
-    "formik",
-    "yup",
-    "webpack",
-    "typescript",
-    "babel",
-    "sass",
-    "hmr",
-    "starter",
-    "boilerplate",
-    "antd",
-    "lodash",
-    "moment"
-  ],
+  "description": "React-Redux streams tutorial",
   "scripts": {
     "build": "yarn run clean-dist && webpack -p --config=configs/webpack/prod.js",
     "clean-dist": "rimraf dist",
