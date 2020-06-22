@@ -1,10 +1,15 @@
 {
+    "button.login": "Zaloguj",
+    "button.logout": "Wyloguj",
     "form.example.name": "Imię",
     "form.example.submit": "Wyślij",
     "form.validation.required": "Pole jest wymagane",
     "layout.footer": "Stopka",
+    "link.streams": "Streamy",
     "local.english": "Angielski",
     "local.polish": "Polski",
     "nav.contact": "Kontakt",
-    "nav.home": "Strona główna"
+    "nav.home": "Strona główna",
+    "stream.form.description": "Opis",
+    "stream.form.title": "Tytuł"
 }

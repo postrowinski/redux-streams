@@ -15,7 +15,7 @@ export const ChangeLanguage: React.FC<{}> = (): JSX.Element => {
     const { changeLocale } = actions.localeActions;
 
     return (
-        <>
+        <span style={{marginRight: 12}}>
             {locale === 'pl' ?
                 <Button type='primary' onClick={(): Action<Locale> => dispatch(changeLocale('en'))}>
                     {formatMessage({id: 'local.english'})}
@@ -24,6 +24,6 @@ export const ChangeLanguage: React.FC<{}> = (): JSX.Element => {
                     {formatMessage({id: 'local.polish'})}
                 </Button>
             }
-        </>
+        </span>
     );
 }
