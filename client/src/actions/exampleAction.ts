@@ -1,5 +1,5 @@
 import { Action, ActionType } from './actionTypes';
-import jsonPlaceholder from '../api/jsonPlaceholder';
+import jsonPlaceholder from '../api/strems';
 import { AxiosResponse } from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 

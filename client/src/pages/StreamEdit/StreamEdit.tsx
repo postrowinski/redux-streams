@@ -3,11 +3,12 @@ import { useFormik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { useIntl } from 'react-intl';
 import { Form, Input, Button } from 'antd';
+import { StreamDTO } from '../../../types/rest';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { actions } from '../../actions/actions';
+import _ from 'lodash';
 
-interface StreamDTO {
-    title: string;
-    description: string;
-}
 
 export const StreamEdit: React.FC<{}> = (): JSX.Element => {
     const { formatMessage } = useIntl();
@@ -25,10 +26,11 @@ export const StreamEdit: React.FC<{}> = (): JSX.Element => {
         }),
         onSubmit: (values: StreamDTO): void => onSubmit(values)
     });
+    const dispatch: Dispatch = useDispatch();
+    const { createStream } = actions.apiActions.stream;
 
     function onSubmit(values: StreamDTO): void {
-        // tslint:disable-next-line
-        console.log(values);
+        dispatch(createStream(values));
     }
 
     return (

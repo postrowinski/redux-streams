@@ -1,6 +1,5 @@
 import { Action, ActionType } from './actionTypes';
 
-
 export interface AuthActions {
     signIn(userId: string): Action<string>;
     signOut(): Action;
