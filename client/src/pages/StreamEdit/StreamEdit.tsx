@@ -1,74 +1,36 @@
 import * as React from 'react';
-import { useFormik, FormikProps } from 'formik';
-import * as Yup from 'yup';
-import { useIntl } from 'react-intl';
-import { Form, Input, Button } from 'antd';
-import { StreamDTO } from '../../../types/rest';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
-import { actions } from '../../actions/actions';
 import _ from 'lodash';
+import { StreamForm } from '../../components/StreamForm/StreamForm';
+import { StreamDTO } from '../../../types/rest';
+import { useParams } from 'react-router';
+import { useEffect } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../actions/actions';
+import { RootState } from '../../reducers/reducer';
 
+interface RouterParams {
+    id: string;
+}
 
 export const StreamEdit: React.FC<{}> = (): JSX.Element => {
-    const { formatMessage } = useIntl();
-    const formik: FormikProps<StreamDTO> = useFormik<StreamDTO>({
-        enableReinitialize: true,
-        validateOnBlur: false,
-        validateOnChange: false,
-        initialValues: {
-            title: '',
-            description: ''
-        },
-        validationSchema: Yup.object().shape({
-            title: Yup.string().nullable().required(formatMessage({id: 'form.validation.required'})),
-            description: Yup.string().nullable().required(formatMessage({id: 'form.validation.required'}))
-        }),
-        onSubmit: (values: StreamDTO): void => onSubmit(values)
-    });
+    const params: RouterParams = useParams<RouterParams>();
     const dispatch: Dispatch = useDispatch();
-    const { createStream } = actions.apiActions.stream;
+    const { fetchStream } = actions.apiActions.stream;
+    const stream: any = useSelector<RootState, any>((state: RootState): any => state.streams);
 
-    function onSubmit(values: StreamDTO): void {
-        dispatch(createStream(values));
+    useEffect((): void => {
+      dispatch(fetchStream(params.id));
+    }, []);
+
+    useEffect(() => {
+       console.log(stream);
+    }, [stream]);
+
+    const initialValues: Partial<StreamDTO> = {
+        description: '',
+        title: ''
     }
 
-    return (
-        <Form style={{maxWidth: 400, margin: 'auto'}} onSubmit={formik.handleSubmit}>
-            <Form.Item
-                label={formatMessage({id: 'stream.form.title'})}
-                required
-                validateStatus={formik.errors.title ? 'error' : undefined}
-                help={formik.errors.title}
-            >
-                <Input
-                    name={'title' as keyof StreamDTO}
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    placeholder={formatMessage({id: 'stream.form.title'})}
-                />
-            </Form.Item>
-            <Form.Item
-                label={formatMessage({id: 'stream.form.description'})}
-                required
-                validateStatus={formik.errors.description ? 'error' : undefined}
-                help={formik.errors.description}
-            >
-                <Input
-                    name={'description' as keyof StreamDTO}
-                    onChange={formik.handleChange}
-                    value={formik.values.description}
-                    placeholder={formatMessage({id: 'stream.form.description'})}
-                />
-            </Form.Item>
-            <Button
-                type='primary'
-                htmlType='submit'
-                block
-                size='large'
-            >
-                {formatMessage({id: 'form.example.submit'})}
-            </Button>
-        </Form>
-    );
+    return <StreamForm initialValues={initialValues} />
 }

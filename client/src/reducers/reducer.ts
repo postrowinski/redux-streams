@@ -1,21 +1,16 @@
-import { exampleActions } from './../actions/exampleAction';
 import { combineReducers, Reducer } from 'redux';
-import { exampleReducer } from './exampleReducer';
 import { localeReducer } from './localeReducer';
 import { authReducer, State as AuthState } from './authReducer';
 import { Locale } from '../actions/localeAction';
-import { ThunkDispatch } from 'redux-thunk';
-import { } from '../'
+import { streamReducer, State as Streams } from './streamReducer';
 export interface RootState {
-    example: number;
-    exampleFetch: (dispatch: ThunkDispatch<{}, {}, any>) => Promise<any>
     locale: Locale;
-    auth: AuthState
+    auth: AuthState;
+    streams: Streams;
 }
 
 export const reducer: Reducer<RootState> = combineReducers({
-    example: exampleReducer,
-    exampleFetch: exampleActions.exampleFetchAction,
     locale: localeReducer,
-    auth: authReducer
+    auth: authReducer,
+    streams: streamReducer
 });

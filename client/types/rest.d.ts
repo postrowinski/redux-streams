@@ -3,7 +3,8 @@ export interface ExampleFormDTO {
 }
 
 export interface StreamDTO {
-    id?: number;
+    id: number;
     title: string;
     description: string;
+    userId: string;
 }

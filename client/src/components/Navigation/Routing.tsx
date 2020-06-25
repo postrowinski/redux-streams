@@ -24,7 +24,7 @@ const routes: SingleRoute[] = [
         component: StreamDelete
     },
     {
-        path: PATHS.STREAM_EDIT,
+        path: `${PATHS.STREAM_EDIT}:id`,
         component: StreamEdit
     },
     {
