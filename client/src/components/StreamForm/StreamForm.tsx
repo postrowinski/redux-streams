@@ -4,24 +4,19 @@ import * as Yup from 'yup';
 import { useIntl } from 'react-intl';
 import { Form, Input, Button } from 'antd';
 import { StreamDTO } from '../../../types/rest';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
-import { actions } from '../../actions/actions';
+import { useSelector } from 'react-redux';
 import _ from 'lodash';
-import { useHistory } from 'react-router-dom';
-import { History } from 'history';
-import { STREAM_LIST } from '../../components/Navigation/paths';
 import { RootState } from '../../reducers/reducer';
 import { State as AuthState } from '../../reducers/authReducer'
 
 
 interface Props {
     initialValues: Partial<StreamDTO>;
+    onSubmit: (values: StreamDTO) => void;
 }
 
 export const StreamForm: React.FC<Props> = (props: Props): JSX.Element => {
     const auth: AuthState = useSelector<RootState, AuthState>((state: RootState): AuthState => state.auth);
-    const history: History = useHistory();
     const { formatMessage } = useIntl();
     const formik: FormikProps<Partial<StreamDTO>> = useFormik<Partial<StreamDTO>>({
         enableReinitialize: true,
@@ -32,16 +27,8 @@ export const StreamForm: React.FC<Props> = (props: Props): JSX.Element => {
             title: Yup.string().nullable().required(formatMessage({id: 'form.validation.required'})),
             description: Yup.string().nullable().required(formatMessage({id: 'form.validation.required'}))
         }),
-        onSubmit: (values: StreamDTO): void => onSubmit(values)
+        onSubmit: (values: StreamDTO): void => props.onSubmit(values)
     });
-    const dispatch: Dispatch = useDispatch();
-    const { createStream } = actions.apiActions.stream;
-
-    function onSubmit(values: StreamDTO): void {
-        dispatch(createStream(values)).then((): void => {
-            history.push(STREAM_LIST);
-        });
-    }
 
     return (
         <>

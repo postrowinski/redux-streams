@@ -47,7 +47,7 @@ function fetchStream(id: string): any {
 
 function editStream(values: StreamDTO): any {
     return async function(dispatch: ThunkDispatch<{}, {}, any>): Promise<any> {
-        const response: AxiosResponse<StreamDTO> = await streams.put(`/streams/${values.id}`, values);
+        const response: AxiosResponse<StreamDTO> = await streams.patch(`/streams/${values.id}`, values);
         dispatch({
             type: ActionType.EDIT_STREAM,
             payload: response.data
